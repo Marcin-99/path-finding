@@ -4,14 +4,25 @@ import './Node.css';
 
 export default class Node extends React.Component {
   render() {
-  	const {isFinish, isStart, test} = this.props;
-  	
+  	const {
+	    column,
+	    row,
+	    isFinish,
+	    isStart,
+	    isWall,
+	    isVisited
+    } = this.props;
+
   	const className = isFinish ? 'node-finish' :
   		 		      isStart ? 'node-start' :
+  		 		      isVisited ? 'node-visited' :
   		 		      '';
 
     return (
-      <div className={ 'node ' + className }></div>
+      <div 
+      	id={ 'node-' + row + '-' + column }
+      	className={ 'node ' + className }>
+      </div>
     );
   }
 }
