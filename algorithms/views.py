@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from .utilities import build_grid
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
-def best_first(request, width, height, start_col, start_row, finish_col, finish_row):
-    print(width, height, start_col, start_row, finish_col, finish_row)
+@api_view(['GET'])
+def best_first(request, *args, **kwargs):
+    grid = build_grid(**kwargs)
+    return Response(grid)
 

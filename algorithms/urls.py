@@ -6,6 +6,7 @@ urlpatterns = [
          'width=<int:width>&'
          'height=<int:height>&'
          'start=<int:start_col>,<int:start_row>&'
-         'finish=<int:finish_col>,<int:finish_row>',
+         'goal=<int:goal_col>,<int:goal_row>&'
+         'walls=<str:walls>',
          views.best_first, name="best-first-algorithm"),
 ]
