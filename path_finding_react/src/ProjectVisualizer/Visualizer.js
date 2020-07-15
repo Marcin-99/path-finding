@@ -4,21 +4,23 @@ import './Visualizer.css';
 import {dijkstra, getNodesInShortestPathOrder} from '../utilities/dijkstra-path-finding-algorithm';
 
 
-const ROWS = 3;
-const COLUMNS = 4;
+const ROWS = 8;
+const COLUMNS = 8;
 
-const START_NODE_ROW = 1;
-const START_NODE_COL = 1;
+const START_NODE_COL = 0;
+const START_NODE_ROW = 4;
 
-const FINISH_NODE_ROW = 1;
-const FINISH_NODE_COL = 3;
+const FINISH_NODE_COL = 7;
+const FINISH_NODE_ROW = 5;
 
 
 
 class Visualizer extends React.Component {
 
 	state = {
-		nodes: []
+		nodes: [],
+		closedPath: [],
+		openPath: []
 	}
 
 	componentDidMount() {
@@ -71,27 +73,28 @@ class Visualizer extends React.Component {
   	}
 
 
-  	animateShortestPath(nodesInShortestPathOrder) {
-	    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+  	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  	animateShortestPath = (path) => {
+	    for (let i = 0; i < path.length; i++) {
+	    	console.log(path[i]);
 	      	setTimeout(() => {
-	        const node = nodesInShortestPathOrder[i];
+	        const node = path[i].node;
 	        document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
 	      	}, 50 * i);
 	    }
   	}
 
-  	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   	fetchBestFirst = () => {
   		console.log("fetching...");
+  		let output;
 
     	fetch('http://127.0.0.1:8000/algorithms/best-first/width=8&height=8&start=0,4&goal=7,5&walls=1,5&1,7&2,5&2,7&3,5&3,7&4,4&4,5&4,7&5,4&5,7&6,5&6,6&6,7')
       		.then(response => response.json())
-      		.then(data => 
-          		console.log(data)
-        	)
-  	}
+      		.then(data => this.animateShortestPath(data.closed_path))
+    }
 
 
   	visualizeBestFirst() {
@@ -99,7 +102,6 @@ class Visualizer extends React.Component {
   		const startNode = nodes[START_NODE_ROW][START_NODE_COL];
   		const finishNode = nodes[FINISH_NODE_ROW][FINISH_NODE_COL];
   		this.fetchBestFirst();
-  		//const visitedNodesInOrder = bestFirst(nodes, startNode, finishNode);
   	}
 
 

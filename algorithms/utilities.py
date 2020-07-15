@@ -41,7 +41,6 @@ def get_neighbors(node, data):
 
 
 def get_heuristic_value(node, data):
-    print(data['goal_node']['column'])
     return abs(data['goal_node']['column'] - node['column']) + abs(data['goal_node']['row'] - node['row'])
 
 
