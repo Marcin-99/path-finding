@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-# example url: /algorithms/best-first/width=3&height=3&start=0,1&goal=2,1&walls='a'
+# example url: /algorithms/best-first/width=8&height=8&start=0,4&goal=7,5&walls=1,5&1,7&2,5&2,7&3,5&3,7&4,4&4,5&4,7&5,4&5,7&6,5&6,6&6,7
 
 
 urlpatterns = [
