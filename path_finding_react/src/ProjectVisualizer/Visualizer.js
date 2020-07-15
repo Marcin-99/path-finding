@@ -2,14 +2,16 @@ import React from 'react';
 import Node from './Node/Node';
 import './Visualizer.css';
 import {dijkstra, getNodesInShortestPathOrder} from '../utilities/dijkstra-path-finding-algorithm';
-import {bestFirst} from '../utilities/best-first-search-algorithm';
 
+
+const ROWS = 3;
+const COLUMNS = 4;
 
 const START_NODE_ROW = 1;
-const START_NODE_COL = 3;
+const START_NODE_COL = 1;
 
-const FINISH_NODE_ROW = 2;
-const FINISH_NODE_COL = 0;
+const FINISH_NODE_ROW = 1;
+const FINISH_NODE_COL = 3;
 
 
 
@@ -21,9 +23,9 @@ class Visualizer extends React.Component {
 
 	componentDidMount() {
 		const nodes = [];
-		for (let row = 0; row < 3; row++) {
+		for (let row = 0; row < ROWS; row++) {
 			const currentRow = [];
-			for (let column = 0; column < 4; column++) {
+			for (let column = 0; column < COLUMNS; column++) {
 				const currentNode = {
 					column,
 					row,
@@ -63,8 +65,9 @@ class Visualizer extends React.Component {
 	    const startNode = nodes[START_NODE_ROW][START_NODE_COL];
 	    const finishNode = nodes[FINISH_NODE_ROW][FINISH_NODE_COL];
 	    const visitedNodesInOrder = dijkstra(nodes, startNode, finishNode);
-	    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-	    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+	    console.log(visitedNodesInOrder);
+	    //const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+	    //this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   	}
 
 
@@ -84,7 +87,7 @@ class Visualizer extends React.Component {
   		const {nodes} = this.state;
   		const startNode = nodes[START_NODE_ROW][START_NODE_COL];
   		const finishNode = nodes[FINISH_NODE_ROW][FINISH_NODE_COL];
-  		const visitedNodesInOrder = bestFirst(nodes, startNode, finishNode);
+  		//const visitedNodesInOrder = bestFirst(nodes, startNode, finishNode);
   	}
 
 

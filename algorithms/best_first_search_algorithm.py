@@ -22,4 +22,5 @@ def best_first_search_algorithm(data):
         for node in open_path:
             node['node']['is_visited'] = True
 
-    return open_path
+    open_path.reverse()
+    return {'open_path': open_path, 'closed_path': closed_path}

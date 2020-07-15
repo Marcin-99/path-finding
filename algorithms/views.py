@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET'])
 def best_first(request, *args, **kwargs):
     data = build_grid(**kwargs)
-    path = best_first_search_algorithm(data)
+    paths = best_first_search_algorithm(data)
 
-    return Response(path)
+    return Response(paths)
 
