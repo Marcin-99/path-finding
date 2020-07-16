@@ -12,7 +12,6 @@ export const printWall = (nodes, column, row) => {
 
 export const animateShortestPath = (path) => {
 	    for (let i = 0; i < path.length; i++) {
-	    	console.log(path[i]);
 	      	setTimeout(() => {
 	        const node = path[i].node;
 	        document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
