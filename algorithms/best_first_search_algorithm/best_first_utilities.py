@@ -47,20 +47,3 @@ def get_heuristic_value(node, data):
 def read_walls_coordinates(walls):
     walls_list = [coordinates.split(',') for coordinates in walls.split('&')]
     return [[int(x[0]), int(x[1])] for x in walls_list]
-
-'''
-def eliminate_redundant_paths(path):
-    path.reverse()
-    for i in range(1, len(path)):
-        if path[i - 1]['heuristic'] == path[i]['heuristic']:
-        print(path[i])
-'''
-
-
-
-
-
-
-
-
-
