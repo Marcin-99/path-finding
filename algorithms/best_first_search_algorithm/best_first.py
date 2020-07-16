@@ -1,4 +1,4 @@
-from .utilities import get_neighbors
+from .best_first_utilities import get_neighbors
 
 
 def best_first_search_algorithm(data):

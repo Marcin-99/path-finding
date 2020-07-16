@@ -1,5 +1,5 @@
-from .utilities import build_grid
-from .best_first_search_algorithm import best_first_search_algorithm
+from .best_first_search_algorithm.best_first_utilities import build_grid
+from .best_first_search_algorithm.best_first import best_first_search_algorithm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
