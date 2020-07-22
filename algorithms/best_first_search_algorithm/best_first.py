@@ -1,4 +1,4 @@
-from .best_first_utilities import get_neighbors
+from .best_first_utilities import get_neighbors, get_shortest_path
 
 
 def best_first_search_algorithm(data):
@@ -24,4 +24,5 @@ def best_first_search_algorithm(data):
             node['node']['is_visited'] = True
 
     open_path.reverse()
-    return {'open_path': open_path, 'closed_path': closed_path}
+    shortest_path = get_shortest_path(closed_path)
+    return {'open_path': open_path, 'closed_path': closed_path, 'shortest_path': shortest_path}

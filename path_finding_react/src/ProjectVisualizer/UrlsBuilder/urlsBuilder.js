@@ -16,6 +16,6 @@ export let urlsBuilder = (nodes, algorithm, grid, startNode, finishNode) => {
 		'&start=' + startNode.column + ',' + startNode.row + 
 		'&goal=' + finishNode.column + ',' + finishNode.row +
 		'&walls=' + walls
-	console.log(url);
+		
 	return url;
 }

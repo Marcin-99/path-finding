@@ -2,7 +2,7 @@ import React from 'react';
 import Node from './Node/Node';
 import './Visualizer.css';
 import {dijkstra, getNodesInShortestPathOrder} from '../utilities/dijkstra-path-finding-algorithm';
-import {printWall, animateShortestPath, buildGrid} from './VisualizerUtilities';
+import {printWall, animateNodesVisited, buildGrid} from './VisualizerUtilities';
 import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
 
 
@@ -15,8 +15,6 @@ class Visualizer extends React.Component {
 
 	state = {
 		nodes: [],
-		closedPath: [],
-		openPath: [],
 		mouseIsPressed: false
 	}
 
@@ -49,7 +47,9 @@ class Visualizer extends React.Component {
 
     	fetch(url)
       		.then(response => response.json())
-      		.then(data => animateShortestPath(data.closed_path))
+      		.then((data) => {
+      			animateNodesVisited(data);
+      		})
     }
 
 

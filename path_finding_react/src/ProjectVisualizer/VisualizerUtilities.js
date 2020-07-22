@@ -1,23 +1,33 @@
 export const printWall = (nodes, column, row) => {
-	  	const newNodes = nodes.slice();
-	  	const node = newNodes[row][column];
-	  	const newNode = {
-	    	...node,
-	    	isWall: !node.isWall,
-	  	};
-	  	newNodes[row][column] = newNode;
-	  	return newNodes;
-	}
+  	const newNodes = nodes.slice();
+  	const node = newNodes[row][column];
+  	const newNode = {
+    	...node,
+    	isWall: !node.isWall,
+  	};
+  	newNodes[row][column] = newNode;
+  	return newNodes;
+}
 
 
-export const animateShortestPath = (path) => {
-	    for (let i = 0; i < path.length; i++) {
-	      	setTimeout(() => {
-	        const node = path[i].node;
-	        document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
-	      	}, 50 * i);
-	    }
-  	}
+export const animateNodesVisited = (data) => {
+    for (let i = 0; i < data.closed_path.length; i++) {
+    	if (i == data.closed_path.length - 1) {
+    		setTimeout(() => {
+	    		for (let j = 0; j < data.shortest_path.length; j++) {
+	      			setTimeout(() => {
+		        		const node = data.shortest_path[j].node;
+		        		document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
+	      			}, 50 * j);
+	    		}
+    		}, 65 * i);
+    	}
+      	setTimeout(() => {
+        	const node = data.closed_path[i].node;
+        	document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-visited';
+      	}, 50 * i);
+    };
+}
 
 
 export const buildGrid = (grid, startNode, finishNode) => {

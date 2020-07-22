@@ -15,11 +15,11 @@
 }
 
 .node-visited {
-	background-color: blue;
+	background-color: #e0e0eb;
 }
 
 .node-shortest-path {
-	background-color: yellow;
+	background-color: #ff5050;
 }
 
 .node-wall {

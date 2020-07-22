@@ -32,7 +32,8 @@ def get_neighbors(node, data):
 
     neighbors = [{
             'node': data['grid'][node['row'] + index['x']][node['column'] + index['y']],
-            'heuristic': get_heuristic_value(data['grid'][node['row'] + index['x']][node['column'] + index['y']], data)
+            'heuristic': get_heuristic_value(data['grid'][node['row'] + index['x']][node['column'] + index['y']], data),
+            'parent': {'column': node['column'], 'row': node['row']}
         } for index in indexes if index
     ]
 
@@ -47,3 +48,18 @@ def get_heuristic_value(node, data):
 def read_walls_coordinates(walls):
     walls_list = [coordinates.split(',') for coordinates in walls.split('&')]
     return [[int(x[0]), int(x[1])] for x in walls_list]
+
+
+def get_shortest_path(closed_path):
+    copied_closed_path = closed_path[:]
+    copied_closed_path.reverse()
+    current_node = copied_closed_path[0]
+    shortest_path = [current_node]
+
+    for node in copied_closed_path:
+        if current_node['parent']['column'] == node['node']['column'] \
+                and current_node['parent']['row'] == node['node']['row']:
+            shortest_path.append(node)
+            current_node = node
+
+    return shortest_path
