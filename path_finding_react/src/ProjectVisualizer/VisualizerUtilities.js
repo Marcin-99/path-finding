@@ -10,7 +10,7 @@ export const printWall = (nodes, column, row) => {
 }
 
 
-export const animateNodesVisited = (data) => {
+export const animatePaths = (data) => {
     for (let i = 0; i < data.closed_path.length; i++) {
     	if (i == data.closed_path.length - 1) {
     		setTimeout(() => {

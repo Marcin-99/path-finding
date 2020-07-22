@@ -2,7 +2,7 @@ import React from 'react';
 import Node from './Node/Node';
 import './Visualizer.css';
 import {dijkstra, getNodesInShortestPathOrder} from '../utilities/dijkstra-path-finding-algorithm';
-import {printWall, animateNodesVisited, buildGrid} from './VisualizerUtilities';
+import {printWall, animatePaths, buildGrid} from './VisualizerUtilities';
 import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
 
 
@@ -15,7 +15,8 @@ class Visualizer extends React.Component {
 
 	state = {
 		nodes: [],
-		mouseIsPressed: false
+		mouseIsPressed: false,
+		dataUrl: ""
 	}
 
 	componentDidMount() {
@@ -48,7 +49,7 @@ class Visualizer extends React.Component {
     	fetch(url)
       		.then(response => response.json())
       		.then((data) => {
-      			animateNodesVisited(data);
+      			animatePaths(data);
       		})
     }
 
@@ -64,12 +65,17 @@ class Visualizer extends React.Component {
 	render() {
 	  return (
 	  	<div>
-		  	<button onClick={ () => this.visualizeAlgorithm() }>
-		  		Visualize Dijkstra
-		  	</button>
-		  	<button onClick={ () => this.visualizeBestFirst() }>
-		  		Visualize Best First
-		  	</button>
+	  		<div className="buttons">
+			  	<button onClick={ () => this.visualizeAlgorithm() }>
+			  		Visualize Dijkstra
+			  	</button>
+			  	<button onClick={ () => this.visualizeBestFirst() }>
+			  		Visualize Best First
+			  	</button>
+			</div>
+			<div className="link">
+				Link to the api with current state: { urlsBuilder(this.state.nodes, 'best-first', GRID, START_NODE, FINISH_NODE) }
+			</div>
 		    <div className="grid">
 		      {this.state.nodes.map((row, rowId) => {
 		      	return <div key={ rowId }>
