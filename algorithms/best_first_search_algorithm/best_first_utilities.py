@@ -14,6 +14,7 @@ def build_grid(*args, **kwargs):
                 'is_goal': kwargs['goal_col'] == column and kwargs['goal_row'] == row,
                 'is_wall': [column, row] in walls,
                 'is_visited': False,
+                'heuristic': 1_000_000
             }
             grid[row].append(node)
             start_node = node if node['is_start'] is True else start_node

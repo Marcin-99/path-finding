@@ -8,7 +8,7 @@ import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
 
 const GRID = {width: 24, height: 24};
 const START_NODE = {column: 0, row: 4};
-const FINISH_NODE = {column: 7, row: 5};
+const FINISH_NODE = {column: 23, row: 5};
 
 
 class Visualizer extends React.Component {

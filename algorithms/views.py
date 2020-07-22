@@ -10,4 +10,3 @@ def best_first(request, *args, **kwargs):
     paths = best_first_search_algorithm(data)
 
     return Response(paths)
-
