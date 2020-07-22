@@ -14,13 +14,21 @@ export const animateNodesVisited = (data) => {
     for (let i = 0; i < data.closed_path.length; i++) {
     	if (i == data.closed_path.length - 1) {
     		setTimeout(() => {
+	    		for (let j = 0; j < data.open_path.length; j++) {
+					setTimeout(() => {
+	        			const node = data.open_path[j].node;
+	        			document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-open';
+	      			}, 25 * j);
+	      		}}, 50 * i);
+
+    		setTimeout(() => {
 	    		for (let j = 0; j < data.shortest_path.length; j++) {
 	      			setTimeout(() => {
 		        		const node = data.shortest_path[j].node;
 		        		document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
 	      			}, 50 * j);
 	    		}
-    		}, 65 * i);
+    		}, 50 * i);
     	}
       	setTimeout(() => {
         	const node = data.closed_path[i].node;

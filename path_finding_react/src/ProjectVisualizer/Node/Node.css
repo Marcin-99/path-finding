@@ -15,7 +15,11 @@
 }
 
 .node-visited {
-	background-color: #e0e0eb;
+	background-color: #d0d0e1;
+}
+
+.node-open {
+	background-color: #efeff5;
 }
 
 .node-shortest-path {
