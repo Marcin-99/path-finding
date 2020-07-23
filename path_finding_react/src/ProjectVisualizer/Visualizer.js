@@ -6,22 +6,38 @@ import {printWall, animatePaths, buildGrid} from './VisualizerUtilities';
 import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
 
 
-const GRID = {width: 24, height: 24};
-const START_NODE = {column: 0, row: 4};
-const FINISH_NODE = {column: 23, row: 5};
-
-
 class Visualizer extends React.Component {
 
 	state = {
 		nodes: [],
+		grid: {},
+		startNode: {},
+		finishNode: {},
 		mouseIsPressed: false,
 		dataUrl: ""
 	}
 
-	componentDidMount() {
-		const nodes = buildGrid(GRID, START_NODE, FINISH_NODE);
+
+	componentDidMount = () => {
+		this.handleStateChangesForResizingScreen();
+		window.addEventListener("resize", (event) => {
+			this.handleStateChangesForResizingScreen();
+		})
+	}
+
+
+	handleStateChangesForResizingScreen = () => {
+		let grid = {width: Math.floor(window.innerWidth/20) - 1, height: Math.floor(window.innerHeight/30)};
+		let startNode = {column: 0, row: Math.floor(grid.height/2)};
+		let finishNode = {column: grid.width - 1, row: Math.floor(grid.height/2)};
+
+		console.log(finishNode);
+
+		const nodes = buildGrid(grid, startNode, finishNode);
 		this.setState({nodes});
+		this.setState({grid});
+		this.setState({startNode});
+		this.setState({finishNode});
 	}
 
 
@@ -44,7 +60,7 @@ class Visualizer extends React.Component {
 
 
   	fetchBestFirst = () => {
-  		let url = urlsBuilder(this.state.nodes, 'best-first', GRID, START_NODE, FINISH_NODE);
+  		let url = urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode);
 
     	fetch(url)
       		.then(response => response.json())
@@ -56,8 +72,8 @@ class Visualizer extends React.Component {
 
   	visualizeBestFirst() {
   		const {nodes} = this.state;
-  		const startNode = nodes[START_NODE.row][START_NODE.column];
-  		const finishNode = nodes[FINISH_NODE.row][FINISH_NODE.column];
+  		const startNode = nodes[this.state.startNode.row][this.state.startNode.column];
+  		const finishNode = nodes[this.state.finishNode.row][this.state.finishNode.column];
   		this.fetchBestFirst();
   	}
 
@@ -74,7 +90,7 @@ class Visualizer extends React.Component {
 			  	</button>
 			</div>
 			<div className="link">
-				Link to the api with current state: { urlsBuilder(this.state.nodes, 'best-first', GRID, START_NODE, FINISH_NODE) }
+				Link to the api with current state: { urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode) }
 			</div>
 		    <div className="grid">
 		      {this.state.nodes.map((row, rowId) => {
