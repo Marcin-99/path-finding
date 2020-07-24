@@ -15,17 +15,20 @@
 }
 
 .node-visited {
-	background-color: #d0d0e1;
+	background-color: #808080;
 }
 
 .node-open {
-	background-color: #efeff5;
+	background-color: #737373;
 }
 
 .node-shortest-path {
-	background-color: #ff5050;
+	padding: 2px;
+	color: white;
+	background-color: #999999;
 }
 
 .node-wall {
-  background-color: rgb(12, 53, 71);
+	background-color: rgb(12, 53, 71);
 }
+

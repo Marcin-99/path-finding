@@ -1,7 +1,7 @@
 import React from 'react';
 import Node from './Node/Node';
 import './Visualizer.css';
-import {printWall, animatePaths, buildGrid} from './VisualizerUtilities';
+import {printWall, animatePaths, buildGrid, shortenUrl} from './VisualizerUtilities';
 import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
 
 
@@ -12,8 +12,7 @@ class Visualizer extends React.Component {
 		grid: {},
 		startNode: {},
 		finishNode: {},
-		mouseIsPressed: false,
-		dataUrl: ""
+		mouseIsPressed: false
 	}
 
 
@@ -64,44 +63,47 @@ class Visualizer extends React.Component {
 
 
 	render() {
-	  return (
-	  	<div>
-	  		<div className="buttons">
-			  	<button>
-			  		Visualize Dijkstra
-			  	</button>
-			  	<button onClick={ () => this.fetchBestFirst() }>
-			  		Visualize Best First
-			  	</button>
+		let dataUrl = urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode)
+
+		return (
+			<div>
+				<div className="link">
+					<button onClick={ () => {navigator.clipboard.writeText(dataUrl)} }>Copy whole link</button>
+					{ shortenUrl(dataUrl) }
+				</div>
+				<div className="buttons">
+				  	<button>
+				  		Visualize Dijkstra
+				  	</button>
+				  	<button onClick={ () => this.fetchBestFirst() }>
+				  		Visualize Best First
+				  	</button>
+				</div>
+			    <div className="grid">
+			      {this.state.nodes.map((row, rowId) => {
+			      	return <div key={ rowId }>
+			      		{row.map((node, nodeId) => {
+			      			const {row, column, isFinish, isStart, isWall, isVisited} = node;
+			      			return (
+			      				<Node
+				      				key={ nodeId }
+				      				column={ column }
+				      				row={ row } 
+				      				isStart={ isStart } 
+				      				isFinish={ isFinish } 
+				      				isVisited={ isVisited } 
+				      				isWall={ isWall } 
+				      				handleMouseDown={ this.handleMouseDown }
+				      				handleMouseDragging={ this.handleMouseDragging }
+				      				handleMouseUp={ this.handleMouseUp }/>
+			      			)
+			      		}
+			      		)}
+			      	</div>
+			      })}
+			    </div>
 			</div>
-			<div className="link">
-				Link to the api with current state: { urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode) }
-			</div>
-		    <div className="grid">
-		      {this.state.nodes.map((row, rowId) => {
-		      	return <div key={ rowId }>
-		      		{row.map((node, nodeId) => {
-		      			const {row, column, isFinish, isStart, isWall, isVisited} = node;
-		      			return (
-		      				<Node
-			      				key={ nodeId }
-			      				column={ column }
-			      				row={ row } 
-			      				isStart={ isStart } 
-			      				isFinish={ isFinish } 
-			      				isVisited={ isVisited } 
-			      				isWall={ isWall } 
-			      				handleMouseDown={ this.handleMouseDown }
-			      				handleMouseDragging={ this.handleMouseDragging }
-			      				handleMouseUp={ this.handleMouseUp }/>
-		      			)
-		      		}
-		      		)}
-		      	</div>
-		      })}
-		    </div>
-	    </div>
-	  );
+		);
 	 }
 }
 

@@ -25,7 +25,7 @@ export const animatePaths = (data) => {
 	    		for (let j = 0; j < data.shortest_path.length; j++) {
 	      			setTimeout(() => {
 		        		const node = data.shortest_path[j].node;
-		        		document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path';
+		        		document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path fas fa-long-arrow-alt-left';
 	      			}, 50 * j);
 	    		}
     		}, 50 * i);
@@ -58,4 +58,10 @@ export const buildGrid = (grid, startNode, finishNode) => {
 		nodes.push(currentRow);
 	}
 	return nodes
+}
+
+
+export const shortenUrl = (url) => {
+	if (url.length > 110) return url.slice(0, 110) + " ...... " + url.slice(url.length - 30, url.length);
+	return url;
 }
