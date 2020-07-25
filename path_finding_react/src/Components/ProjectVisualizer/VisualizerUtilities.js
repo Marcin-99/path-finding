@@ -11,23 +11,15 @@ export const printWall = (nodes, column, row) => {
 
 
 export const animatePaths = (data) => {
-    for (let i = 0; i < data.closed_path.length; i++) {
-    	if (i == data.closed_path.length - 1) {
+    for (let i = 1; i < data.closed_path.length - 1; i++) {
+    	if (i == data.closed_path.length - 2) {
     		setTimeout(() => {
-	    		for (let j = 0; j < data.open_path.length; j++) {
-					setTimeout(() => {
-	        			const node = data.open_path[j].node;
-	        			document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-open';
-	      			}, 25 * j);
-	      		}}, 50 * i);
+    			manageChangingClassesOfNodes(data.open_path, 25, 'node node-open')
+    		}, 50 * i);
 
     		setTimeout(() => {
-	    		for (let j = 0; j < data.shortest_path.length; j++) {
-	      			setTimeout(() => {
-		        		const node = data.shortest_path[j].node;
-		        		document.getElementById('node-' + node.row + '-' + node.column).className = 'node node-shortest-path fas fa-long-arrow-alt-left';
-	      			}, 50 * j);
-	    		}
+    			let direction = "";
+    			manageChangingClassesOfNodesAbdDirectionsOfArrows(data.shortest_path, 50, 'node node-shortest-path fas fa-arrow-')
     		}, 50 * i);
     	}
       	setTimeout(() => {
@@ -64,4 +56,30 @@ export const buildGrid = (grid, startNode, finishNode) => {
 export const shortenUrl = (url) => {
 	if (url.length > 110) return url.slice(0, 110) + " ...... " + url.slice(url.length - 30, url.length);
 	return url;
+}
+
+
+const manageChangingClassesOfNodes = (path, speed, classNames) => {
+	for (let i = 1; i < path.length - 1; i++) {
+		setTimeout(() => {
+			const node = path[i].node;
+			document.getElementById('node-' + node.row + '-' + node.column).className = classNames;
+		}, speed * i);
+	}
+}
+
+
+const manageChangingClassesOfNodesAbdDirectionsOfArrows = (path, speed, classNames) => {
+	for (let i = 1; i < path.length - 1; i++) {
+		let direction = "";
+		if (path[i].node.column > path[i-1].node.column) direction = "right";
+		else if (path[i].node.column < path[i-1].node.column) direction = "left";
+		else if (path[i].node.row > path[i-1].node.row) direction = "down";
+		else if (path[i].node.row < path[i-1].node.row) direction = "up";
+
+		setTimeout(() => {
+			const node = path[i].node;
+			document.getElementById('node-' + node.row + '-' + node.column).className = classNames + direction;
+		}, speed * i);
+	}
 }

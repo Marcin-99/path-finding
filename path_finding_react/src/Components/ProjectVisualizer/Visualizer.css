@@ -1,20 +1,69 @@
 .grid {
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 1px;
 	color: black;
 	background: #666666;
 }
 
-.buttons {
-	margin-top: 30px;
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
+#link {
+	color: #F5F5F5;
+	font-size: 10px;
+	display: none;
+	margin: 10px 5px 10px;
 }
 
-.link {
-	color: #333300;
-	font-size: 10px;
-	margin-top: 5px;
+.copyLink {
+	margin-left: 8px;
+	cursor: pointer;
+	color: #a3a3c2;
+}
+
+.copyLink:hover {
+	color: #8585ad;
+}
+
+@media (max-width: 770px) {
+	#link {
+		display: none;
+	}
+}
+
+.buttons {
 	width: 100%;
+	display: inline-block;
+}
+
+.algorithmButton {
+	background-color: #666666;
+	border: none;
+	margin: 5px;
+}
+
+@media (max-width: 770px) {
+	.linkLabel {
+		display: none;
+	}
+	.linkCheckbox {
+		display: none;
+	}
+	#checkForLink {
+		display: none;
+	}
+}
+
+.linkLabel {
+	position: absolute;
+	top: 58px;
+	left: 50px;
+	color: white;
+	font-size: 12px;
+}
+
+#checkForLink {
+	position: absolute;
+	top: 59.5px;
+	left: 133px;
+	color: white;
+	font-size: 12px;
 }

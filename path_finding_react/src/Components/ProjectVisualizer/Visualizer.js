@@ -12,7 +12,8 @@ class Visualizer extends React.Component {
 		grid: {},
 		startNode: {},
 		finishNode: {},
-		mouseIsPressed: false
+		mouseIsPressed: false,
+		showLink: false
 	}
 
 
@@ -62,22 +63,22 @@ class Visualizer extends React.Component {
     }
 
 
+    hideLink = (e) => {
+    	let showLink = !this.state.showLink;
+    	this.setState({showLink})
+    	if (this.state.showLink == true) document.getElementById('link').style.display = 'none';
+    	else document.getElementById('link').style.display = 'inline-block';
+    }
+
+
 	render() {
 		let dataUrl = urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode)
 
 		return (
 			<div>
-				<div className="link">
-					<button onClick={ () => {navigator.clipboard.writeText(dataUrl)} }>Copy whole link</button>
+				<div id="link">
 					{ shortenUrl(dataUrl) }
-				</div>
-				<div className="buttons">
-				  	<button>
-				  		Visualize Dijkstra
-				  	</button>
-				  	<button onClick={ () => this.fetchBestFirst() }>
-				  		Visualize Best First
-				  	</button>
+					<i onClick={ () => {navigator.clipboard.writeText(dataUrl)} } className="fas fa-link copyLink">Copy link</i>
 				</div>
 			    <div className="grid">
 			      {this.state.nodes.map((row, rowId) => {
@@ -102,6 +103,19 @@ class Visualizer extends React.Component {
 			      	</div>
 			      })}
 			    </div>
+			    <div className="buttons">
+				  	<button className="algorithmButton">
+				  		Visualize Dijkstra
+				  	</button>
+				  	<button className="algorithmButton" onClick={ this.fetchBestFirst }>
+				  		Visualize Best First
+				  	</button>
+				  	<button className="algorithmButton" onClick={ this.handleStateChangesForResizingScreen }>
+				  		Clear Board
+				  	</button>
+				</div>
+				<input type="checkbox" id="checkForLink" onChange={ this.hideLink } checked={ this.state.showLink }/>
+				<label htmlFor="checkForLink" className="linkLabel" >Show link to api</label>
 			</div>
 		);
 	 }

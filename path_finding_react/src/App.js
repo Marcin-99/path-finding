@@ -11,8 +11,10 @@ function App() {
     <div className="App">
     	<BrowserRouter>
 	    	<NavBar />
-	      	<Route path="/visualizer" component={ Visualizer } />
-	      	<Route path="/mazes" component={ Mazes } />
+	    	<div id="content">
+		      	<Route path="/visualizer" component={ Visualizer } />
+		      	<Route path="/mazes" component={ Mazes } />
+	      	</div>
       	</BrowserRouter>
     </div>
   );
