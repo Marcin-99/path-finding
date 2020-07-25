@@ -8,13 +8,12 @@
 }
 
 nav {
-	background-color: #333333;
 	height: 80px;
 	width: 100%;
 }
 
 label.logo {
-	color: #a3a3c2;
+	color: #F9F7D0;
 	font-size: 35px;
 	line-height: 80px;
 	padding: 0 50px;
@@ -33,14 +32,15 @@ nav ul li {
 }
 
 nav ul li a {
-	color: white;
+	color: #F9F7D0;
 	font-size: 17px;
 	padding: 6px 13px;
 	border-radius: 3px;
+	font-weight: bold;
 }
 
 a.active, a:hover {
-	background: #666666;
+	background: #0b2d42;
 	transition: .5s;
 }
 
@@ -90,8 +90,7 @@ a.active, a:hover {
 		font-size: 16px;
 	}
 	a:hover, a.active{
-		background: none;
-		color: #0082e6;
+		background: #0b2d42;
 
 	}
 	#check:checked ~ ul {

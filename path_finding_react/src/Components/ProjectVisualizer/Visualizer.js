@@ -26,7 +26,7 @@ class Visualizer extends React.Component {
 
 
 	handleStateChangesForResizingScreen = () => {
-		let grid = {width: Math.floor(window.innerWidth/20) - 1, height: Math.floor(window.innerHeight/30)};
+		let grid = {width: Math.floor(window.innerWidth/20), height: Math.floor(window.innerHeight/30)};
 		let startNode = {column: 0, row: Math.floor(grid.height/2)};
 		let finishNode = {column: grid.width - 1, row: Math.floor(grid.height/2)};
 		const nodes = buildGrid(grid, startNode, finishNode);
@@ -111,7 +111,7 @@ class Visualizer extends React.Component {
 				  		Visualize Best First
 				  	</button>
 				  	<button className="algorithmButton" onClick={ this.handleStateChangesForResizingScreen }>
-				  		Clear Board
+				  		Clear board
 				  	</button>
 				</div>
 				<input type="checkbox" id="checkForLink" onChange={ this.hideLink } checked={ this.state.showLink }/>

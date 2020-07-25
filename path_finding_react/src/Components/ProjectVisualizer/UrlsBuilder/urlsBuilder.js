@@ -2,7 +2,6 @@ export let urlsBuilder = (nodes, algorithm, grid, startNode, finishNode) => {
 	let walls = '';
 
 	for (let row = 0; row < nodes.length; row++) {
-		const currentRow = [];
 		for (let column = 0; column < nodes[row].length; column++) {
 			if (nodes[row][column].isWall) walls += column + ',' + row + '&';
 		}

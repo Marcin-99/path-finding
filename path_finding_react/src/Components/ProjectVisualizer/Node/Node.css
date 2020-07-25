@@ -1,9 +1,9 @@
 .node {
 	width: 20px;
   	height: 20px;
-  	outline: 1px solid black;
   	display: inline-block;
   	margin-bottom: -4px;
+  	background: rgba(255,255,255,.3);
 }
 
 .node-finish {
@@ -15,20 +15,15 @@
 }
 
 .node-visited {
-	background-color: #808080;
-}
-
-.node-open {
-	background-color: #737373;
+	background-color: rgba(255,255,255,.1);
 }
 
 .node-shortest-path {
 	padding: 2px;
-	color: white;
-	background-color: #808080;;
+	color: #F9F7D0;
 }
 
 .node-wall {
-	background-color: rgb(12, 53, 71);
+	background: rgba(12, 53, 71, .6);
 }
 

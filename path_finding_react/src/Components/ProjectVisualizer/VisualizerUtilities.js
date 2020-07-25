@@ -12,13 +12,12 @@ export const printWall = (nodes, column, row) => {
 
 export const animatePaths = (data) => {
     for (let i = 1; i < data.closed_path.length - 1; i++) {
-    	if (i == data.closed_path.length - 2) {
+    	if (i === data.closed_path.length - 2) {
     		setTimeout(() => {
-    			manageChangingClassesOfNodes(data.open_path, 25, 'node node-open')
+    			manageChangingClassesOfNodesWithoutShortestPath(data.closed_path, data.shortest_path, 25, 'node')
     		}, 50 * i);
 
     		setTimeout(() => {
-    			let direction = "";
     			manageChangingClassesOfNodesAbdDirectionsOfArrows(data.shortest_path, 50, 'node node-shortest-path fas fa-arrow-')
     		}, 50 * i);
     	}
@@ -38,8 +37,8 @@ export const buildGrid = (grid, startNode, finishNode) => {
 			const currentNode = {
 				column,
 				row,
-				isStart: row == startNode.row && column == startNode.column,
-				isFinish: row == finishNode.row && column == finishNode.column,
+				isStart: row === startNode.row && column === startNode.column,
+				isFinish: row === finishNode.row && column === finishNode.column,
 				distance: Infinity,
 				isVisited: false,
 				isWall: false,
@@ -69,6 +68,17 @@ const manageChangingClassesOfNodes = (path, speed, classNames) => {
 }
 
 
+const manageChangingClassesOfNodesWithoutShortestPath = (path, shortestPath, speed, classNames) => {
+	for (let i = 1; i < path.length - 1; i++) {
+		setTimeout(() => {
+			const node = path[i].node;
+			if (!checkIfNodeIsInThePath(node, shortestPath))
+				document.getElementById('node-' + node.row + '-' + node.column).className = classNames;
+		}, shortestPath.length / 8 * i);
+	}
+}
+
+
 const manageChangingClassesOfNodesAbdDirectionsOfArrows = (path, speed, classNames) => {
 	for (let i = 1; i < path.length - 1; i++) {
 		let direction = "";
@@ -82,4 +92,12 @@ const manageChangingClassesOfNodesAbdDirectionsOfArrows = (path, speed, classNam
 			document.getElementById('node-' + node.row + '-' + node.column).className = classNames + direction;
 		}, speed * i);
 	}
+}
+
+
+const checkIfNodeIsInThePath = (node, path) => {
+	for (let i = 0; i < path.length; i++) { 
+		if (node.column == path[i].node.column && node.row == path[i].node.row) return true;
+	}
+	return false
 }

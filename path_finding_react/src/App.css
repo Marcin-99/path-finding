@@ -1,4 +1,7 @@
 .App {
-	background-color: #666666;
 	height: 100vh;
+}
+
+.bgImage {
+   	background-image: linear-gradient(to right, #0b2d42, #10B5B8);
 }

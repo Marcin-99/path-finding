@@ -1,13 +1,11 @@
 .grid {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 1px;
+	width: 100vw;
+	margin: 1px;
 	color: black;
-	background: #666666;
 }
 
 #link {
-	color: #F5F5F5;
+	color: white;
 	font-size: 10px;
 	display: none;
 	margin: 10px 5px 10px;
@@ -16,17 +14,11 @@
 .copyLink {
 	margin-left: 8px;
 	cursor: pointer;
-	color: #a3a3c2;
+	color: #0b2d42;
 }
 
 .copyLink:hover {
-	color: #8585ad;
-}
-
-@media (max-width: 770px) {
-	#link {
-		display: none;
-	}
+	color: #124a6d;
 }
 
 .buttons {
@@ -35,7 +27,7 @@
 }
 
 .algorithmButton {
-	background-color: #666666;
+	background-color: none;
 	border: none;
 	margin: 5px;
 }
@@ -53,14 +45,16 @@
 }
 
 .linkLabel {
+	cursor: pointer;
 	position: absolute;
 	top: 58px;
 	left: 50px;
-	color: white;
+	color: #fcfbe8;
 	font-size: 12px;
 }
 
 #checkForLink {
+	cursor: pointer;
 	position: absolute;
 	top: 59.5px;
 	left: 133px;

@@ -8,7 +8,7 @@ import Mazes from './Components/MazesPage/mazes';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bgImage">
     	<BrowserRouter>
 	    	<NavBar />
 	    	<div id="content">
