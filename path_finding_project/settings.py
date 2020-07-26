@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'algorithms.apps.AlgorithmsConfig',
+    'mazes.apps.MazesConfig',
 ]
 
 MIDDLEWARE = [

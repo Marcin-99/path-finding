@@ -2,7 +2,8 @@ import React from 'react';
 import Node from './Node/Node';
 import './Visualizer.css';
 import {printWall, animatePaths, buildGrid, shortenUrl} from './VisualizerUtilities';
-import {urlsBuilder} from './UrlsBuilder/urlsBuilder';
+import {buildRequestData} from './requestBuilder/requestBuilder';
+import {getCookie} from '../projectUtilities';
 
 
 class Visualizer extends React.Component {
@@ -53,13 +54,19 @@ class Visualizer extends React.Component {
 
 
   	fetchBestFirst = () => {
-  		let url = urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode);
+  		let postData = buildRequestData(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode);
 
-    	fetch(url)
-      		.then(response => response.json())
-      		.then((data) => {
-      			animatePaths(data);
-      		})
+  		fetch('http://127.0.0.1:8000/algorithms/best-first', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: JSON.stringify(postData)
+        })
+        .then(response => response.json())
+        .then(data => { animatePaths(data) })
+        .catch(error => console.error(error))
     }
 
 
@@ -72,13 +79,13 @@ class Visualizer extends React.Component {
 
 
 	render() {
-		let dataUrl = urlsBuilder(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode)
+		let dataUrl = JSON.stringify(buildRequestData(this.state.nodes, 'best-first', this.state.grid, this.state.startNode, this.state.finishNode));
 
 		return (
 			<div>
 				<div id="link">
 					{ shortenUrl(dataUrl) }
-					<i onClick={ () => {navigator.clipboard.writeText(dataUrl)} } className="fas fa-link copyLink">Copy link</i>
+					<i onClick={ () => {navigator.clipboard.writeText(dataUrl)} } className="fas fa-link copyLink">Copy all data</i>
 				</div>
 			    <div className="grid">
 			      {this.state.nodes.map((row, rowId) => {
@@ -115,7 +122,7 @@ class Visualizer extends React.Component {
 				  	</button>
 				</div>
 				<input type="checkbox" id="checkForLink" onChange={ this.hideLink } checked={ this.state.showLink }/>
-				<label htmlFor="checkForLink" className="linkLabel" >Show link to api</label>
+				<label htmlFor="checkForLink" className="linkLabel" >Show body of the api request</label>
 			</div>
 		);
 	 }

@@ -62,4 +62,5 @@ def get_shortest_path(closed_path):
             shortest_path.append(node)
             current_node = node
 
+    shortest_path.reverse()
     return shortest_path

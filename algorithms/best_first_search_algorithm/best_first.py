@@ -23,6 +23,5 @@ def best_first_search_algorithm(data):
         for node in open_path:
             node['node']['is_visited'] = True
 
-    open_path.reverse()
     shortest_path = get_shortest_path(closed_path)
     return {'open_path': open_path, 'closed_path': closed_path, 'shortest_path': shortest_path}
