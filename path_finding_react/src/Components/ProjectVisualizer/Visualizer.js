@@ -27,11 +27,28 @@ class Visualizer extends React.Component {
 
 
 	handleStateChangesForResizingScreen = () => {
+		this.clearClassNames();
 		let grid = {width: Math.floor(window.innerWidth/20), height: Math.floor(window.innerHeight/30)};
 		let startNode = {column: 0, row: Math.floor(grid.height/2)};
 		let finishNode = {column: grid.width - 1, row: Math.floor(grid.height/2)};
 		const nodes = buildGrid(grid, startNode, finishNode);
 		this.setState({nodes, grid, startNode, finishNode});
+	}
+
+
+	clearBoard = () => {
+		this.clearClassNames();
+		this.handleStateChangesForResizingScreen();
+	}
+
+
+	clearClassNames = () => {
+		for (let row = 0; row < this.state.grid.height; row++)
+			for (let column = 0; column < this.state.grid.width; column++) {
+				let nodeClassName = document.getElementById('node-' + row + '-' + column).className;
+				if (nodeClassName.includes('fas fa-arrow-'))
+					document.getElementById('node-' + row + '-' + column).className = 'node';
+			}
 	}
 
 
@@ -73,8 +90,23 @@ class Visualizer extends React.Component {
     hideLink = (e) => {
     	let showLink = !this.state.showLink;
     	this.setState({showLink})
-    	if (this.state.showLink == true) document.getElementById('link').style.display = 'none';
+    	if (this.state.showLink === true) document.getElementById('link').style.display = 'none';
     	else document.getElementById('link').style.display = 'inline-block';
+    }
+
+
+    saveMazeLayout = () => {
+    	fetch('http://127.0.0.1:8000/mazes/save', {
+        	method: 'POST',
+        	headers: {
+         		'Content-Type': 'application/json',
+         		'X-CSRFToken': getCookie('csrftoken'),
+          	},
+          	body: JSON.stringify(this.state.nodes)
+        })
+        .then(data => data.json())
+        .then(data => { console.log(data) })
+        .catch(error => console.error(error))
     }
 
 
@@ -111,14 +143,17 @@ class Visualizer extends React.Component {
 			      })}
 			    </div>
 			    <div className="buttons">
-				  	<button className="algorithmButton">
+				  	<button className="btn">
 				  		Visualize Dijkstra
 				  	</button>
-				  	<button className="algorithmButton" onClick={ this.fetchBestFirst }>
+				  	<button className="btn" onClick={ this.fetchBestFirst }>
 				  		Visualize Best First
 				  	</button>
-				  	<button className="algorithmButton" onClick={ this.handleStateChangesForResizingScreen }>
+				  	<button className="btn" onClick={ this.clearBoard }>
 				  		Clear board
+				  	</button>
+				  	<button className="btn" onClick={ this.saveMazeLayout }>
+				  		Save maze
 				  	</button>
 				</div>
 				<input type="checkbox" id="checkForLink" onChange={ this.hideLink } checked={ this.state.showLink }/>

@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('list', views.mazes_list, name='mazes-list'),
+    path('list', views.list_mazes, name='list-mazes'),
+    path('save', views.save_maze, name='mazes-save'),
 ]

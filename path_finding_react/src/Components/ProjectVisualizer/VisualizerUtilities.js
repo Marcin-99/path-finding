@@ -58,16 +58,6 @@ export const shortenUrl = (url) => {
 }
 
 
-const manageChangingClassesOfNodes = (path, speed, classNames) => {
-	for (let i = 1; i < path.length - 1; i++) {
-		setTimeout(() => {
-			const node = path[i].node;
-			document.getElementById('node-' + node.row + '-' + node.column).className = classNames;
-		}, speed * i);
-	}
-}
-
-
 const manageChangingClassesOfNodesWithoutShortestPath = (path, shortestPath, speed, classNames) => {
 	for (let i = 1; i < path.length - 1; i++) {
 		setTimeout(() => {
@@ -97,7 +87,7 @@ const manageChangingClassesOfNodesAbdDirectionsOfArrows = (path, speed, classNam
 
 const checkIfNodeIsInThePath = (node, path) => {
 	for (let i = 0; i < path.length; i++) { 
-		if (node.column == path[i].node.column && node.row == path[i].node.row) return true;
+		if (node.column === path[i].node.column && node.row === path[i].node.row) return true;
 	}
 	return false
 }
